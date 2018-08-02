@@ -78,7 +78,7 @@ def scan_and_extract_vgg16_features(data_dir_path, output_dir_path, model=None, 
         name_split_arr = f.split("_")
         video_file_path = os.path.join(input_data_dir_path, f)
         if os.path.isfile(video_file_path):
-            output_feature_file_path = os.path.join(output_feature_data_dir_path, video_file_path.split('.')[0] + '.npy')
+            output_feature_file_path = os.path.join(output_feature_data_dir_path, f.split('.')[0] + '.npy')
             x = extract_vgg16_features(model, video_file_path, output_feature_file_path)
             y = name_split_arr[1]
             y_samples.append(y)
