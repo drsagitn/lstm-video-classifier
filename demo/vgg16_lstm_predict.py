@@ -25,6 +25,7 @@ def main():
 
     predictor = VGG16LSTMVideoClassifier()
     predictor.load_model(config_file_path, weight_file_path)
+    print("Possible predicted labels: ", predictor.labels)
 
     videos = scan_ucf_with_labels(data_dir_path, [label for (label, label_index) in predictor.labels.items()])
 

@@ -42,7 +42,7 @@ def scan_ucf(data_dir_path, limit):
     dir_count = 0
     for f in os.listdir(input_data_dir_path):
         file_path = input_data_dir_path + os.path.sep + f
-        if not os.path.isfile(file_path):
+        if os.path.isdir(file_path):
             dir_count += 1
             for ff in os.listdir(file_path):
                 video_file_path = file_path + os.path.sep + ff
@@ -56,15 +56,21 @@ def scan_ucf_with_labels(data_dir_path, labels):
     input_data_dir_path = data_dir_path + '/UCF-101'
 
     result = dict()
+    for file in os.listdir(input_data_dir_path):
+        video_file_path = os.path.join(input_data_dir_path, file)
+        if os.path.isfile(video_file_path):
+            name_split_arr = file.split("_")
+            label = name_split_arr[1]
+            result[video_file_path] = label
 
-    dir_count = 0
-    for label in labels:
-        file_path = input_data_dir_path + os.path.sep + label
-        if not os.path.isfile(file_path):
-            dir_count += 1
-            for ff in os.listdir(file_path):
-                video_file_path = file_path + os.path.sep + ff
-                result[video_file_path] = label
+    # dir_count = 0
+    # for label in labels:
+    #     file_path = input_data_dir_path + os.path.sep + label
+    #     if os.path.isdir(file_path):
+    #         dir_count += 1
+    #         for ff in os.listdir(file_path):
+    #             video_file_path = file_path + os.path.sep + ff
+    #             result[video_file_path] = label
     return result
 
 
