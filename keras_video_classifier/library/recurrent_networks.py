@@ -14,7 +14,7 @@ from keras_video_classifier.library.utility.frame_extractors.vgg16_feature_extra
     scan_and_extract_vgg16_features
 
 BATCH_SIZE = 64
-NUM_EPOCHS = 20
+NUM_EPOCHS = 500
 VERBOSE = 1
 HIDDEN_UNITS = 512
 MAX_ALLOWED_FRAMES = 20
