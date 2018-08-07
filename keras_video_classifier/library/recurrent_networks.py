@@ -319,6 +319,7 @@ class VGG16LSTMVideoClassifier(object):
                                                                output_dir_path=feature_dir_name,
                                                                model=self.vgg16_model,
                                                                data_set_name=data_set_name)
+        print("Extracted ", len(x_samples), "from data input dir")
         self.num_input_tokens = x_samples[0].shape[1]
         frames_list = []
         for x in x_samples:
@@ -331,7 +332,6 @@ class VGG16LSTMVideoClassifier(object):
         for i in range(len(x_samples)):
             x = x_samples[i]
             frames = x.shape[0]
-            print(x.shape)
             if frames > self.expected_frames:
                 x = x[0:self.expected_frames, :]
                 x_samples[i] = x
@@ -371,6 +371,9 @@ class VGG16LSTMVideoClassifier(object):
 
         train_num_batches = len(Xtrain) // BATCH_SIZE
         test_num_batches = len(Xtest) // BATCH_SIZE
+
+        if os.path.isfile(weight_file_path):
+            model.load_weights(weight_file_path)
 
         checkpoint = ModelCheckpoint(filepath=weight_file_path, save_best_only=True)
         history = model.fit_generator(generator=train_gen, steps_per_epoch=train_num_batches,
